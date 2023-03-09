@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+  crudphp:
+    container_name: crudphp-app
+    image: githubemail1asir/crudphp:v1
+    restart: always
+    environment:
+      DB_HOST: bd_mariadb_crudphp
+      DB_NAME: crudphp
+      DB_USER: admin
+      DB_PASSWORD: admin
+    ports:
+      - 9082:80
+    depends_on:
+      - db
+  db:
+    container_name: bd_mariadb_crudphp
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: crudphp
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: admin
+    volumes:
+      - mariadb_data_crudphp:/var/lib/mysql
+volumes:
+    mariadb_data_crudphp:
